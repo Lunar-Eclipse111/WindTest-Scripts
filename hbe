@@ -1,0 +1,41 @@
+
+    local mt = getrawmetatable(game);
+    make_writeable(mt);
+    local old_index = mt.__index;
+    
+    mt.__index = function(a, b)
+    if tostring(a) == "HumanoidRootPart" then
+    if tostring(b) == "Size" then
+    return Vector3.new(2, 2, 1);
+    end
+    end
+    return old_index(a, b);
+    end
+
+
+local hitbox = true
+
+
+spawn(
+    function()
+        while hitbox do
+            wait()
+            for i, v in pairs(game.Players:GetPlayers()) do
+                if v.Name ~= game.Players.LocalPlayer.Name then
+                    pcall(
+                        function()
+                            game.Workspace[v.Name].HumanoidRootPart.CanCollide = false
+                            game.Workspace[v.Name].HumanoidRootPart.Material = "Neon"
+                            game.Workspace[v.Name].HumanoidRootPart.Transparency = 0.5
+                            game.Workspace[v.Name].HumanoidRootPart.BrickColor = BrickColor.new("Really blue")
+                            game.Workspace[v.Name].HumanoidRootPart.Size =
+                                Vector3.new(10,10,10)
+                            game.Workspace[v.Name].HumanoidRootPart.Size =
+                                Vector3.new(10,10,10)
+                        end
+                    )
+                end
+            end
+        end
+    end
+)
